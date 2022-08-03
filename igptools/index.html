@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        bktech2021 Tools
+    </title>
+    <style>
+        body {
+            background-color: #0078aa;
+        }
+        button {
+            padding: 15px 30px;
+            background-color: #3ab4f2;
+            border: 4px solid #3ab4f2;
+            transition-duration: 0.4s;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        button:hover {
+            background-color: #f2df3a;
+            border-color: #f2df3a;
+        }
+
+        input {
+            border: 4px solid #f6f6f6;
+            border-radius: 4px;
+        }
+
+        a, label {
+            font-size: large;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .center input {
+            display: inline-block;
+            line-height: normal;
+            vertical-align: middle;
+        }
+
+        #main {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <div style="padding: 10px 30px;">
+            <input id="tire">
+            <label for="tire">Tire usage</label>
+        </div>
+        <div style="padding: 10px 30px;">
+            <input type="text" id="fuel">
+            <label for="fuel">Fuel usage</label>
+        </div>
+        <div style="padding: 10px 30px;">
+            <input type="text" id="min" value="45">
+            <label for="min">Min tire per</label>
+        </div>
+        <button id="calc" style="margin-left: 30px;">Calculate</button>
+        <a id="sonuc" style="margin-left: 30px;"></a>
+    </div>
+    <script>
+        document.getElementById("calc").onclick = function () {
+            const tire = document.getElementById("tire").value;
+            const fuel = document.getElementById("fuel").value;
+            const minCon = document.getElementById("min").value;
+            let con = 100;
+            let iter = 0;
+            while (con > minCon){
+                con -= con / (100/tire);
+                iter += 1;
+            }
+            document.getElementById("sonuc").innerHTML = iter + " laps";
+        }
+    </script>
+</body>
+
+</html>
