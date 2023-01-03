@@ -67,6 +67,7 @@
         var messages = document.getElementById('messages');
         const ws = new WebSocket("wss://glacier-capricious-muse.glitch.me");
         function clickfunc() {
+            if (document.getElementById("nick").value == "") document.getElementById("nick").value = "Anonymus";
             if (input.value == "") return;
             let data = {
                 author: document.getElementById("nick").value,
