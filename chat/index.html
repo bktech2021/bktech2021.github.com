@@ -66,6 +66,10 @@
         });
         var messages = document.getElementById('messages');
         const ws = new WebSocket("wss://glacier-capricious-muse.glitch.me");
+        ws.onerror = function(err) {
+            console.error('Socket encountered error: ', err.message, 'Closing socket');
+            ws.close();
+        };
         function clickfunc() {
             if (document.getElementById("nick").value == "") document.getElementById("nick").value = "Anonymus";
             if (input.value == "") return;
