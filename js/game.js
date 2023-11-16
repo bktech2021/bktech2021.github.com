@@ -1,10 +1,15 @@
 let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
 ctx.fillStyle = "#2B2B2B";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 let grid = new Grid(60, 60, 9, 9, 50, 15);
 grid.initCells();
+grid.center();
 
 let player2 = new Player("#FF6F61");
 player2.x = 4;
@@ -33,6 +38,15 @@ function gameLoop() {
     if (gridPos != null) {
       if (selection.moveTo(gridPos.x, gridPos.y) != null) {
         turn ^= 1;
+        switch (turn) {
+          case 0:
+            player1.turn();
+            break;
+        
+          default:
+            player2.turn();
+            break;
+        }
         selection = null;
         gridPos = null;
       }
@@ -41,6 +55,9 @@ function gameLoop() {
     grid.drawCells();
     grid.drawPlayer(player1);
     grid.drawPlayer(player2);
+  }
+  if (player1.y == 0 || player2.y == 8) {
+    alert("Game Over");
   }
   requestAnimationFrame(gameLoop);
 }

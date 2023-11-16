@@ -10,6 +10,11 @@ class Grid {
     this.initCells();
   }
 
+  center() {
+    this.x = Math.floor((canvas.width - this.width * this.cellSize) / 2);
+    this.y = Math.floor((canvas.height - this.height * this.cellSize) / 2);
+  }
+
   initCells() {
     for (let i = 0; i < this.width; i++) {
       this.cells[i] = [];

@@ -1,6 +1,11 @@
 class Player {
   constructor(color) {
+    this.originalColor = color;
     this.color = color;
+  }
+
+  turn() {
+    this.color = "#FFA07A";
   }
 
   moveTo(x, y) {
@@ -19,6 +24,7 @@ class Player {
     }
     this.x = x;
     this.y = y;
+    this.color = this.originalColor;
     return true;
   }
 }
