@@ -19,6 +19,9 @@ let player1 = new Player("#5E72E4");
 player1.x = 4;
 player1.y = 8;
 
+player1.otherPlayer(player2);
+player2.otherPlayer(player1);
+
 let gridPos = null;
 let selection = null;
 let turn = 0;
@@ -36,19 +39,44 @@ function gameLoop() {
     }
   } else if (selection != null) {
     if (gridPos != null) {
-      if (selection.moveTo(gridPos.x, gridPos.y) != null) {
-        turn ^= 1;
-        switch (turn) {
-          case 0:
-            player1.turn();
-            break;
-        
-          default:
-            player2.turn();
-            break;
-        }
-        selection = null;
-        gridPos = null;
+      switch (gridPos.type) {
+        case "cell":
+          if (selection.moveTo(gridPos.x, gridPos.y) != null) {
+            turn ^= 1;
+            switch (turn) {
+              case 0:
+                player1.turn();
+                break;
+              case 1:
+                player2.turn();
+                break;
+            }
+            selection = null;
+            gridPos = null;
+          }
+          break;
+
+        case "wall":
+          console.log(gridPos.rotation, gridPos.x, gridPos.y);
+          if (selection.placeWall(gridPos.x, gridPos.y, gridPos.rotation) != null) {
+            selection.color = selection.originalColor;
+            turn ^= 1;
+            switch (turn) {
+              case 0:
+                player1.turn();
+                break;
+              case 1:
+                player2.turn();
+                break;
+            }
+            selection = null;
+          }
+          gridPos = null;
+          break;
+
+        default:
+          gridPos = null;
+          break;
       }
     }
   } else {
@@ -58,6 +86,7 @@ function gameLoop() {
   }
   if (player1.y == 0 || player2.y == 8) {
     alert("Game Over");
+    return;
   }
   requestAnimationFrame(gameLoop);
 }
