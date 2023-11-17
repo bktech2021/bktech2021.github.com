@@ -1,4 +1,5 @@
-let canvas = document.getElementById("gameScreen");
+try {
+  let canvas = document.getElementById("gameScreen");
 let ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
@@ -92,3 +93,6 @@ function gameLoop() {
 }
 
 gameLoop();
+} catch (err) {
+  alert(err);
+}
